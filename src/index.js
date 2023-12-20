@@ -30,12 +30,17 @@ fetchBreeds()
 
 function selectionChange() {
   let selectedBreedId = selectBtn.value;
-  fetchCatByBreed(selectedBreedId).then(data => {
-    catInfo.innerHTML = `<image width="300" src="${data[0].url}"></image> 
+  fetchCatByBreed(selectedBreedId)
+    .then(data => {
+      catInfo.innerHTML = `<image width="300" src="${data[0].url}"></image> 
       <div style= "padding: 16px"><h1>${data[0].breeds[0].name}</h1> <p> ${data[0].breeds[0].description}</p> <p> <strong>Temperaments:</strong> ${data[0].breeds[0].temperament}</p>
       </div>
     `;
-  });
+    })
+    .catch(error => {
+      errorParagraph.style.display = 'block';
+      loader.style.display = 'none';
+    });
 }
 
 selectBtn.addEventListener('change', selectionChange);
